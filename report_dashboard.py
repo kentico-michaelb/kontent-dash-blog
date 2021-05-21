@@ -1,6 +1,7 @@
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
+import flask
 import config
 from kontent_delivery.client import DeliveryClient
 from reports.content_types import build_types_chart
@@ -11,7 +12,8 @@ from dash.dependencies import Input, Output
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = flask.Flask(__name__)
+app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 
 # KONTENT
 client = DeliveryClient(config.project_id, options=config.delivery_options)
